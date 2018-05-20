@@ -30,7 +30,7 @@
 
      createConfig: function(data){
       var self= this  
-      fetch('/api/',{
+      fetch('/api',{
         method: 'POST',
         headers: {
           'Accept': 'application/json',

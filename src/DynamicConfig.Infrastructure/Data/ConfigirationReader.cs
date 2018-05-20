@@ -39,6 +39,8 @@ namespace DynamicConfig.Infrastructure.Data
 		private ConcurrentDictionary<string,Config> getConfigFromRedis()
 		{
 
+			_dict.Clear();
+
 			IEnumerable<Config> configs = _configRepository.GetValues("CONFIGS");
 
             foreach (Config item in configs)
@@ -52,88 +54,36 @@ namespace DynamicConfig.Infrastructure.Data
 
 	    public void UpdateConfig()
 		{
-			getConfigFromRedis();
+		 getConfigFromRedis();
+    
 
-			foreach (var key in ConfigurationManager.AppSettings.AllKeys)
-			{
-				String value = ConfigurationManager.AppSettings[key];
-                            
-				if(!_dict.ContainsKey(key))
-				{
-
-					Config model = new Config();
-                    model.Name = key;
-					model.ApplicationName = _applicationName;
-                    model.IsActive = true;
-                    model.Type = "type1";
-					model.Value = value;
-                    
-                    MemoryStream stream = new MemoryStream();  
-                    DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(Config));
-
-                    ser.WriteObject(stream, model);
-					byte[] json = stream.ToArray();  
-					stream.Close();
-                   
-					_configRepository.SetValue(Encoding.UTF8.GetString(json, 0, json.Length));
-				}
-				else
-				{
-
-					Config _config;
-					var _value = _dict.TryGetValue(key, out _config);
-
-
-
-
-				}
-		           		
-			}
-           
           string appName = System.IO.Directory.GetCurrentDirectory();
 		  ExeConfigurationFileMap map = new ExeConfigurationFileMap();
           map.ExeConfigFilename = new DirectoryInfo(appName).GetFiles("*.config")[0].FullName;
 
           System.Configuration.Configuration config = ConfigurationManager.OpenMappedExeConfiguration(map, ConfigurationUserLevel.None);
+                     
+          config.AppSettings.Settings.Clear();
+         
+    		foreach (KeyValuePair<string, Config> item in _dict)
+    		{
 
 
+    			String value = item.Value.Value;
 
-			foreach (KeyValuePair<string, Config> item in _dict)
-			{
+    			KeyValueConfigurationElement value_ = config.AppSettings.Settings[item.Key];
 
-				String value = item.Value.Value;
-
-				String value2 = ConfigurationManager.AppSettings[item.Key];
-
-                               
-				if(ConfigurationManager.AppSettings[item.Key] == value){}
-				else if(ConfigurationManager.AppSettings[item.Key] == null)
-				{
-
-					String aa = ConfigurationManager.AppSettings[item.Key];
-                   
-					config.AppSettings.Settings.Add(item.Key,item.Value.Value);               
-					config.Save(ConfigurationSaveMode.Modified);
-					ConfigurationManager.RefreshSection("appSettings");
-				}
-
-				else if(ConfigurationManager.AppSettings[item.Key] != value)
-				{
-					
-					config.AppSettings.Settings[item.Key].Value =  item.Value.Value;
-				    config.Save(ConfigurationSaveMode.Modified);
-                    ConfigurationManager.RefreshSection("appSettings");
-				}
-               
-			}
-
-
-                         
-
+    			config.AppSettings.Settings.Add(item.Key, item.Value.Value);
+                config.Save(ConfigurationSaveMode.Modified);
+                ConfigurationManager.RefreshSection("appSettings");
+       
+    		}
+         
 		}
 
 		public T GetValue<T>(string key)
 		{
+
 		     object setting_value = ConfigurationManager.AppSettings[key];
    	         return (T) Convert.ChangeType(setting_value, typeof(T));				
 		}

@@ -10,10 +10,17 @@ namespace DynamicConfig.Infrastructure.Utilities
 
 		static RedisConnectionUtility()
 		{
+			if (ConnectionMultiplexer.Connect("localhost").IsConnected)
+            {
+
 			RedisConnectionUtility.lazyConnection = new Lazy<ConnectionMultiplexer>(() =>
-			{
+			{	
 				return ConnectionMultiplexer.Connect("localhost");
+               
 			});
+
+			}
+
 		}
 
 		private static Lazy<ConnectionMultiplexer> lazyConnection;

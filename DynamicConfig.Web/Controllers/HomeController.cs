@@ -24,7 +24,7 @@ namespace DynamicConfig.Web.Controllers
   
 		public HomeController()
         {
-            _repository = new ConfigirationReader("","",TimeSpan.FromMinutes(1));
+			_repository = new ConfigirationReader(System.Reflection.Assembly.GetEntryAssembly().GetName().Name,"",TimeSpan.FromMinutes(1));
         }
 
         public IActionResult Index()

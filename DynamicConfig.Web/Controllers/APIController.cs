@@ -39,16 +39,19 @@ namespace DynamicConfig.Web.Controllers
         
         
         [HttpPost]
-		public void Post([FromBody] string value)
+		public void Post([FromBody] Config model)
         {
-			MemoryStream stream = new MemoryStream();
-            DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(Config));
 
-            ser.WriteObject(stream, value);
-            byte[] json = stream.ToArray();
-            stream.Close();
+			_repository.SetValue(model);
 
-			_repository.SetValue(Encoding.UTF8.GetString(json, 0, json.Length));
+			//MemoryStream stream = new MemoryStream();
+   //         DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(Config));
+
+   //         ser.WriteObject(stream, value);
+   //         byte[] json = stream.ToArray();
+   //         stream.Close();
+
+			//_repository.SetValue(Encoding.UTF8.GetString(json, 0, json.Length));
 
         }
         

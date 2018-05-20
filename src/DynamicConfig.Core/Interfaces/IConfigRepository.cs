@@ -8,7 +8,7 @@ namespace DynamicConfig.Core.Interfaces
     {
 
  		IEnumerable<Config> GetValues(string key);
-		void SetValue(string value);
+		void SetValue(Config model);
 		void DeleteValue(string id);
         void UpdateValue(Config model);
 		String GetValue(string id);

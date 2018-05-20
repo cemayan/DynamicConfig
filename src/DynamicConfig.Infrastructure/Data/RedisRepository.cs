@@ -20,6 +20,7 @@ namespace DynamicConfig.Infrastructure.Data
 		public RedisRepository()
         {
             var connection = RedisConnectionUtility.Connection;
+
             _database = connection.GetDatabase();
         }
              
@@ -52,28 +53,23 @@ namespace DynamicConfig.Infrastructure.Data
         }
         
 
-		public void SetValue(string value)
+		public void SetValue(Config model)
         {
 			string random = new RandomStrings(8).generateString();
 
-            using (var ms = new MemoryStream(Encoding.Unicode.GetBytes(value)))
-            {
-                DataContractJsonSerializer deserializer = new DataContractJsonSerializer(typeof(Config));
-                Config co = (Config)deserializer.ReadObject(ms);
-                co.Id = random;
 
+			model.Id = random;
+			MemoryStream stream = new MemoryStream();
+            DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(Config));
 
-                MemoryStream stream = new MemoryStream();
-                DataContractJsonSerializer ser = new DataContractJsonSerializer(typeof(Config));
+            ser.WriteObject(stream, model);
+            byte[] json = stream.ToArray();
 
-                ser.WriteObject(stream, co);
-                byte[] json = stream.ToArray();
+            var hashList = new List<HashEntry>();
+            hashList.Add(new HashEntry(random, Encoding.UTF8.GetString(json, 0, json.Length)));
+            _database.HashSet("CONFIGS", hashList.ToArray());
 
-                var hashList = new List<HashEntry>();
-                hashList.Add(new HashEntry(random, Encoding.UTF8.GetString(json, 0, json.Length)));
-                _database.HashSet("CONFIGS", hashList.ToArray());
-
-            }
+           
         }
 
 
