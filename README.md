@@ -14,7 +14,7 @@ Dynamic Config creates a dynamic configuration structure.
 
 ## Usage
 
-* View the [DynamicConfig documentation](#http://cemayan.me/dynamicconfdoc/)
+View the [DynamicConfig documentation](#http://cemayan.me/dynamicconfdoc/)
 
 
 
