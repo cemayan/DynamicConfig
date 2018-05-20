@@ -1,7 +1,7 @@
 # Dynamic Config
 
-
 Dynamic Config creates a dynamic configuration structure.
+The Dynamic Config extension reads information from the config file extensions and automatically updates it (from the web interface).
 
 * [Requirements](#Requierements)
 * [Usage](#Usage)
@@ -14,9 +14,7 @@ Dynamic Config creates a dynamic configuration structure.
 
 ## Usage
 
-View the [DynamicConfig documentation](http://cemayan.me/dynamicconfdoc/)
-
-
+View the [DynamicConfig documentation](#http://cemayan.me/dynamicconfdoc/)
 
 
 
