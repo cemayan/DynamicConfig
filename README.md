@@ -14,7 +14,7 @@ The Dynamic Config extension reads information from the config file extensions a
 
 ## Usage
 
-View the [DynamicConfig documentation](#http://cemayan.me/dynamicconfdoc/)
+View the [DynamicConfig documentation](http://cemayan.me/dynamicconfdoc/)
 
 
 
