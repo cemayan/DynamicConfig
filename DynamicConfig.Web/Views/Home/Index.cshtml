@@ -1,0 +1,99 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+
+<i class="pencil alternate"></i><a id="new_config" href="#">New Config</a>
+<br />
+<br />
+
+
+
+    <div id="app">
+
+        <table class="ui single line table">
+            <thead>
+                <tr>
+                    <th style="width:5%">Id</th>
+                    <th>Name</th>
+                    <th>Type</th>
+                    <th>Value</th>
+                    <th>IsActive</th>
+                    <th>ApplicationName</th>
+                    <th>Operations</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="config in configs">
+                    <td style="width:5%">{{config.id}}</td>
+                    <td>{{config.name}}</td>
+                    <td>{{config.type}}</td>
+                    <td>{{config.value}}</td>
+                    <td>{{config.isActive}}</td>
+                    <td>{{config.applicationName}}</td>
+                    <td><i class="edit icon" v-on:click="editPost(config.id)"></i><i class="trash alternate icon"  v-on:click="deleteConfig(config.id)"></i></td>
+                </tr>
+            </tbody>
+        </table>
+
+
+
+
+        <div class="ui modal">
+            <i class="close icon"></i>
+            <div class="header">
+                New Config
+            </div>
+            <div class="content">
+                <form class="ui form">
+                    <div class="field">
+                        <label>Name</label>
+                        <input type="text" id="name" name="name" v-model="name" placeholder="Name">
+                    </div>
+                    <div class="field">
+                        <label>Type</label>
+                        <select name="Type" id="Type" v-model="type" class="ui dropdown">
+                            <option value=""></option>
+                            <option value="Integer">Integer</option>
+                            <option value="Boolean">Boolean</option>
+                            <option value="String">String</option>
+                        </select>
+              
+                    </div>
+                    <div class="field">
+                        <label>Type</label>
+                        <input type="text" name="value" id="value" v-model="value" placeholder="Value">
+                    </div>
+                    <div class="field">
+                        <label>Is Active</label>
+                        <select name="isActive" id="isActive" v-model="isActive" class="ui dropdown">
+                            <option value=""></option>
+                            <option value="true">True</option>
+                            <option value="false">False</option>
+                        </select>
+                    </div>
+
+                    <div class="field">
+                        <label>Application Name</label>
+                        <input type="text" name="applicationName" v-model="applicationName" id="applicationName" placeholder="Application Name">
+                    </div>
+                </form>
+            </div>
+            <div class="actions">
+                <div class="ui positive right labeled icon button" v-if="modalStatus=='create'" v-on:click="createConfig">
+                    Create
+                    <i class="checkmark icon"></i>
+                </div>
+
+                <div class="ui positive right labeled icon button"  v-if="modalStatus=='update'" v-on:click="updateConfig">
+                    Update
+                    <i class="checkmark icon"></i>
+                </div>
+
+            </div>
+        </div>
+
+
+
+    </div>

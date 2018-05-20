@@ -1,0 +1,8 @@
+{
+  "name": "DynamicConfig",
+  "private": true,
+  "directory": "wwwroot/lib",
+  "dependencies": {
+    "semantic-ui": "2.3"
+  }
+}

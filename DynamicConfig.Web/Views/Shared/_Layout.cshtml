@@ -1,0 +1,38 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - DynamicConfig.Web</title>
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/lib/semantic-ui/dist/semantic.min.css" />
+</head>
+<body style="padding:70px">
+
+    <div class="ui fixed inverted menu">
+        <div class="ui container">
+            <a href="/" class="header item">
+                <img class="logo" src="https://www.boyner.com.tr/assets/images/boyner.png">
+                &nbsp;DynamicConfig
+            </a>
+            <a href="/" class="item">Home</a>
+
+        </div>
+    </div>
+
+    <div class="ui main text container-fluid">
+        @RenderBody()
+    </div>
+
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+
+        <script src="~/lib/semantic-ui/dist/semantic.min.js"></script>
+        <script src="~/js/site.js"></script>
+
+        @RenderSection("Scripts", required: false)
+</body>
+</html>
