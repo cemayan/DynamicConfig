@@ -1,1 +1,3 @@
-{"ApplicationName":"DynamicConfig.Web","Id":"YsoyTPjq","IsActive":true,"Name":"asda","Type":"Integer","Value":"8"}
+{"ApplicationName":"DynamicConfig.Web","Id":"Fg6ibc6f","IsActive":true,"Name":"asd","Type":"Boolean","Value":"sad"}
+{"ApplicationName":"DynamicConfig.Web","Id":"NJrqQO2p","IsActive":true,"Name":"SiteName","Type":"String","Value":"ABC"}
+{"ApplicationName":"DynamicConfig.Tests","Id":"DNkq9o9s","IsActive":true,"Name":"SiteName","Type":"Boolean","Value":"ABC"}

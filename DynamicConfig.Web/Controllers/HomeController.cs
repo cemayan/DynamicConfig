@@ -29,7 +29,7 @@ namespace DynamicConfig.Web.Controllers
 
         public IActionResult Index()
         {
-			String aa  = _repository.GetValue<string>("logfilelocation");
+			String aa  = _repository.GetValue<string>("SiteName");
 
 			return View();
         }

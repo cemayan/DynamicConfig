@@ -21,8 +21,8 @@ namespace Tests
         [Test]
         public void checkAppConfig()
         {
-            string key = "countoffiles";
-            string expectedValue = "6";
+			string key = "SiteName";
+            string expectedValue = "ABC";
             string value = _configurationReader.GetValue<string>(key);
             Assert.AreEqual(value, expectedValue);
         }

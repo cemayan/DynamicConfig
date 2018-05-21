@@ -83,8 +83,11 @@ namespace DynamicConfig.Infrastructure.Data
 
 		public T GetValue<T>(string key)
 		{
-
-		     object setting_value = ConfigurationManager.AppSettings[key];
+			string appName = System.IO.Directory.GetCurrentDirectory();
+            ExeConfigurationFileMap map = new ExeConfigurationFileMap();
+            map.ExeConfigFilename = new DirectoryInfo(appName).GetFiles("*.config")[0].FullName;
+			System.Configuration.Configuration config = ConfigurationManager.OpenMappedExeConfiguration(map, ConfigurationUserLevel.None);
+			object setting_value = config.AppSettings.Settings[key].Value;
    	         return (T) Convert.ChangeType(setting_value, typeof(T));				
 		}
 
