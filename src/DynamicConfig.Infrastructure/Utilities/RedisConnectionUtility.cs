@@ -8,19 +8,37 @@ namespace DynamicConfig.Infrastructure.Utilities
 	public class RedisConnectionUtility
 	{
 
+		static string url ="localhost";
+		static int port = 6379;
+
+		static ConfigurationOptions co = new ConfigurationOptions()
+        {
+            SyncTimeout = 500000,
+            EndPoints =
+            {
+				{url,port }
+            },
+            AbortOnConnectFail = false // this prevents that error
+        };
+
 		static RedisConnectionUtility()
 		{
-			if (ConnectionMultiplexer.Connect("localhost").IsConnected)
-            {
-
+       
 			RedisConnectionUtility.lazyConnection = new Lazy<ConnectionMultiplexer>(() =>
-			{	
-				return ConnectionMultiplexer.Connect("localhost");
-               
+			{
+           
+				if(ConnectionMultiplexer.Connect(co).IsConnected)
+				{
+					return ConnectionMultiplexer.Connect(co);
+				}
+				else
+				{
+					return null;
+				}
+
+            
 			});
-
-			}
-
+      
 		}
 
 		private static Lazy<ConnectionMultiplexer> lazyConnection;
@@ -29,7 +47,16 @@ namespace DynamicConfig.Infrastructure.Utilities
 		{
 			get
 			{
-				return lazyConnection.Value;
+
+                if(lazyConnection !=null)
+				{
+					return lazyConnection.Value;
+				}
+				else
+				{
+					return null;
+				}
+
 			}
 		}
 

@@ -1,0 +1,1 @@
+{"ApplicationName":"DynamicConfig.Web","Id":"YsoyTPjq","IsActive":true,"Name":"asda","Type":"Integer","Value":"8"}

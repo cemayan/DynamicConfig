@@ -1,5 +1,5 @@
 {
-  "name": "DynamicConfig",
+  "name": "config",
   "private": true,
   "directory": "wwwroot/lib",
   "dependencies": {

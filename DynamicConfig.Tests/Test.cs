@@ -15,11 +15,11 @@ namespace Tests
         [SetUp]
         public void Initialize()
         {
-            _configurationReader = new ConfigirationReader("countoffiles","",TimeSpan.FromMinutes(2));
+            _configurationReader = new ConfigirationReader("DynamicConf.Tests","",TimeSpan.FromMinutes(2));
         }
 
         [Test]
-        public void ReturnFalseGivenValueOf1()
+        public void checkAppConfig()
         {
             string key = "countoffiles";
             string expectedValue = "6";

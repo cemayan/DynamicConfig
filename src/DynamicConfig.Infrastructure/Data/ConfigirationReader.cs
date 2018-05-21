@@ -24,7 +24,7 @@ namespace DynamicConfig.Infrastructure.Data
 		private readonly string _applicationName;
 		private readonly string _connectionString;
 		private ConcurrentDictionary<string, Config> _dict  = new ConcurrentDictionary<string, Config>();
-
+		private ConcurrentDictionary<string, Config> _config = new ConcurrentDictionary<string, Config>();
        
         
 		public ConfigirationReader(string applicationName, string connectionString, TimeSpan refreshTimerIntervalInMs)
@@ -41,13 +41,13 @@ namespace DynamicConfig.Infrastructure.Data
 
 			_dict.Clear();
 
-			IEnumerable<Config> configs = _configRepository.GetValues("CONFIGS");
+			IEnumerable<Config> configs = _configRepository.GetValues("CONFIGS",_applicationName);
 
             foreach (Config item in configs)
 			{
 				_dict.TryAdd(item.Name, item);
 			}
-            
+     
 			return _dict;
 		}
        
@@ -88,13 +88,6 @@ namespace DynamicConfig.Infrastructure.Data
    	         return (T) Convert.ChangeType(setting_value, typeof(T));				
 		}
 
-		public IEnumerable<Config> aa()
-		{
-
-
-			return _configRepository.GetValues("CONFIGS");
-		}
-
-        
+     
 	}
 }

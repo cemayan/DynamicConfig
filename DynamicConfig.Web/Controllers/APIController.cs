@@ -28,7 +28,7 @@ namespace DynamicConfig.Web.Controllers
         [HttpGet]
         public IEnumerable<Config> Get()
         {
-			return _repository.GetValues("CONFIGS")  ;
+			return _repository.GetValues("CONFIGS",System.Reflection.Assembly.GetEntryAssembly().GetName().Name)  ;
         }
         
         [HttpGet("{id}")]

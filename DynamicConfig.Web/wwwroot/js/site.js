@@ -28,7 +28,9 @@
           })
       },
 
-     createConfig: function(data){
+        createConfig: function(data){
+
+      
       var self= this  
       fetch('/api',{
         method: 'POST',
@@ -44,6 +46,21 @@
       })
      },
 
+     createModal : function()
+     {
+         this.modalStatus = "create"
+
+        this.selectedId = "";
+        this.name= "";
+        this.type= "";
+        this.value= "";
+        self.isActive= "";
+        this.applicationName= "";
+
+        $('.ui.modal')
+  .modal('show');
+
+     },
      editPost: function(pk){
       var self= this  
       fetch('/api/'+pk,{
@@ -99,16 +116,5 @@
     }
   })
   
-
-
-var new_config = document.querySelector("#new_config");
-
-new_config.addEventListener('click',function(){
-
-  $('.ui.modal')
-  .modal('show');
-
-
-})
 
 
