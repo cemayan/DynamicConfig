@@ -68,27 +68,47 @@ namespace DynamicConfig.Infrastructure.Data
     		foreach (KeyValuePair<string, Config> item in _dict)
     		{
 
+                if(item.Value.ApplicationName  == _applicationName)
+				{
+                    
+					String value = item.Value.Value;
 
-    			String value = item.Value.Value;
+                KeyValueConfigurationElement value_ = config.AppSettings.Settings[item.Key];
 
-    			KeyValueConfigurationElement value_ = config.AppSettings.Settings[item.Key];
-
-    			config.AppSettings.Settings.Add(item.Key, item.Value.Value);
+                config.AppSettings.Settings.Add(item.Key, item.Value.Value);
                 config.Save(ConfigurationSaveMode.Modified);
                 ConfigurationManager.RefreshSection("appSettings");
        
+				}
+
+
     		}
          
 		}
 
 		public T GetValue<T>(string key)
 		{
+
 			string appName = System.IO.Directory.GetCurrentDirectory();
+
             ExeConfigurationFileMap map = new ExeConfigurationFileMap();
             map.ExeConfigFilename = new DirectoryInfo(appName).GetFiles("*.config")[0].FullName;
-			System.Configuration.Configuration config = ConfigurationManager.OpenMappedExeConfiguration(map, ConfigurationUserLevel.None);
-			object setting_value = config.AppSettings.Settings[key].Value;
-   	         return (T) Convert.ChangeType(setting_value, typeof(T));				
+            System.Configuration.Configuration config = ConfigurationManager.OpenMappedExeConfiguration(map, ConfigurationUserLevel.None);
+			KeyValueConfigurationElement value_ = config.AppSettings.Settings[key];
+
+
+			if(value_ != null)
+			{
+            				
+				object setting_value = config.AppSettings.Settings[key].Value;
+                 return (T) Convert.ChangeType(setting_value, typeof(T));   
+			}
+			else
+			{
+				return (T) Convert.ChangeType("", typeof(T));  
+			}
+		
+
 		}
 
      

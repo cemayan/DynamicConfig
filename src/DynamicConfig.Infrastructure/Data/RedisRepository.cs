@@ -157,7 +157,10 @@ namespace DynamicConfig.Infrastructure.Data
 
             using (StreamWriter writer = System.IO.File.AppendText("redislog.txt"))
             {
+
 				writer.WriteLine(Encoding.UTF8.GetString(json, 0, json.Length));
+
+
             }
          
 			//When there is no storage connection
